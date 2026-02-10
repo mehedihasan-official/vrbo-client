@@ -16,6 +16,7 @@ const Header = () => {
   const { user, usersData, loading, signOut, admin } = useContext(AuthContext);
   const location = useLocation();
 
+
   const isUserLoggedIn = !!user;
 
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);

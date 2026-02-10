@@ -25,27 +25,37 @@ const AuthProvider = ({ children }) => {
   const [earningList, setEarningList] = useState([]);
   const [yearlyEarnings, setYearlyEarnings] = useState({});
   const [usersData, setUsersData] = useState([]);
+  const [allUsersData, setAllUsersData] = useState([]);
   const [UserInfo, setUserInfo] = useState([]);
 
-  console.log(yearlyEarnings)
+
+  console.log(allUsersData)
+
   
 
-  // Fetch all users data
-  const fetchAllUsers = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_Link}/users`);
-      if (!response.ok) throw new Error('Failed to fetch users');
-      const data = await response.json();
-      setUsersData(data);
-      return data;
-    } catch (error) {
-      console.error("Error fetching users:", error);
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  };
+    // Fetch all users data
+    const fetchAllUsers = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_Link}/users`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setAllUsersData(data);
+      } catch (error) {
+        console.error("Error fetching users:", error)
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    // Fetch users on component mount
+    useEffect(() => {
+      fetchAllUsers();
+    }, []);
 
   // Update user data
   const updateUser = async (userId, updateData) => {
@@ -66,6 +76,33 @@ const AuthProvider = ({ children }) => {
       throw error;
     }
   };
+
+  // Fetch user data from the server when the authenticated user's email changes
+ useEffect(() => {
+  if (user?.email) {
+    const fetchUsersData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_Link}/users/${user.email}`);
+        if (!response.ok) {
+          throw new Error(
+            `Error fetching user data: ${response.status} ${response.statusText}`
+          );
+        }
+        const data = await response.json();
+        setUsersData(data); // Store the fetched user data in state
+      } catch (error) {
+        console.error("Error fetching user data:", error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsersData();
+  } else {
+    setUsersData(null); // Clear user data if no user is logged in
+  }
+}, [user?.email]);
 
   // Delete user
   const deleteUser = async (userId) => {
@@ -225,6 +262,88 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // Registration function
+  // This function handles user registration using email and password.
+
+  const registration = async (email, password, name, photoURL = null) => {
+    setLoading(true);
+    try {
+      // 1. Create Firebase auth user
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+  
+      // 2. Prepare user data for backend
+      const userData = {
+        uid: user.uid,
+        name: name,
+        email: user.email,
+        imageURL: photoURL || null,
+        isAdmin: false,
+        createdAt: new Date().toISOString(),
+        lastLogin: new Date().toISOString(),
+        provider: 'email/password' // Track registration method
+      };
+  
+      // 3. Save user data to your backend
+      const response = await fetch(`${import.meta.env.VITE_API_Link}/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+  
+      if (!response.ok) {
+        // If backend save fails, delete the Firebase auth user to maintain consistency
+        await user.delete();
+        throw new Error('Failed to save user data to database');
+      }
+  
+      // 4. Update local state
+      const savedUser = await response.json();
+      setUser({
+        ...user,
+        ...savedUser // Include any additional data returned from backend
+      });
+  
+      // 5. Show success message
+      Swal.fire({
+        title: "Registration Successful!",
+        text: "Your account has been created",
+        icon: "success",
+        timer: 1500,
+      });
+  
+      return user;
+    } catch (error) {
+      console.error("Registration error:", error);
+      
+      // Handle specific Firebase errors
+      let errorMessage = "Registration failed. Please try again.";
+      if (error.code === 'auth/email-already-in-use') {
+        errorMessage = "This email is already registered.";
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = "Password should be at least 6 characters.";
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = "Please enter a valid email address.";
+      }
+  
+      Swal.fire({
+        title: "Registration Failed",
+        text: error.message || errorMessage,
+        icon: "error",
+      });
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  
+  // Google login function
+  // This function handles user login using Google authentication.
+
   const googleLogin = async () => {
     setLoading(true);
     try {
@@ -301,7 +420,9 @@ const AuthProvider = ({ children }) => {
     yearlyEarnings,
     usersData,
     UserInfo,
+    allUsersData,
     login,
+    registration,
     createUser,
     googleLogin,
     signOut,
