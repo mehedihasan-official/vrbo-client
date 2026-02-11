@@ -15,7 +15,7 @@ import AdminOverview from "../pages/AdminOverview/AdminOverview";
 import AdminControl from "../pages/AdminControl/AdminControl";
 import UpdateEarnings from "../pages/UpdateEarnings/UpdateEarnings";
 import UserControl from "../pages/UserControl/UserControl";
-import NotFoundPage from "../pages/NotFoundPage/notFoundPage";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage"
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: '/resorts',
         element: <Resorts />
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />
       }
     ]
   },
@@ -65,10 +69,7 @@ export const router = createBrowserRouter([
         element: <Listings />
       },
       // Catch-all for hosting-dashboard routes
-      {
-        path: '*',
-        element: <NotFoundPage />
-      }
+      
     ]
   },
   {
