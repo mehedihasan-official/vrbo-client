@@ -28,9 +28,6 @@ const AuthProvider = ({ children }) => {
   const [allUsersData, setAllUsersData] = useState([]);
   const [UserInfo, setUserInfo] = useState([]);
 
-
-  console.log(allUsersData)
-
   
 
     // Fetch all users data

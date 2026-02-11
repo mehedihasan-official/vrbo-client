@@ -1,22 +1,20 @@
 import { useState } from "react";
 import { Link, useNavigate, Outlet } from "react-router";
 import { Transition } from "@headlessui/react";
-import { HiOutlineHomeModern } from "react-icons/hi2";
-import { BsFillMenuButtonWideFill } from "react-icons/bs";
-import { FaHome } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
-import logo from "../../../src/assets/vrbo_logo.svg";
+import {
+  MdViewQuilt,
+  MdAttachMoney,
+} from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
-import { MdAttachMoney, MdViewQuilt } from "react-icons/md";
+import { FaHome, FaUserCircle } from "react-icons/fa";
+import { BsFillMenuButtonWideFill } from "react-icons/bs";
+import { IoMdClose } from "react-icons/io";
+import logo from "../../../src/assets/vrbo_logo.svg";
 
 const AdminPanel = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
 
   const handleMenuItemClick = (path) => {
     setMobileMenuOpen(false);
@@ -24,99 +22,137 @@ const AdminPanel = () => {
   };
 
   return (
-    <div className="lg:flex h-screen">
-      {/* Sidebar for LG screens */}
-      <div className="hidden lg:block lg:w-64 lg:flex-shrink-0 bg-slate-200 h-screen">
-        <ul className="menu p-4 text-gray-700 font-bold text-lg">
+    <div className="min-h-screen flex bg-gray-100">
+      {/* ================= DESKTOP SIDEBAR ================= */}
+      <aside className="hidden lg:flex lg:flex-col lg:w-64 bg-white shadow-md">
+        <div className="flex items-center justify-center py-6 border-b">
+          <img src={logo} alt="Logo" className="w-22 h-8" />
+        </div>
+
+        <ul className="flex-1 p-4 space-y-3 font-semibold text-gray-700">
           <li>
-            <Link to="admin-overview">
+            <Link to="admin-overview" className="flex items-center gap-2 hover:text-blue-600">
               <MdViewQuilt /> Admin Overview
             </Link>
           </li>
+
           <li>
-            <Link to="user-control">
+            <Link to="user-control" className="flex items-center gap-2 hover:text-blue-600">
               <AiOutlineUsergroupAdd /> User Control
             </Link>
           </li>
+
           <li>
-            <Link to="earnings-update">
+            <Link to="earnings-update" className="flex items-center gap-2 hover:text-blue-600">
               <MdAttachMoney /> Earnings Update
             </Link>
           </li>
+
           <li>
-            <Link to="admin-control">
+            <Link to="admin-control" className="flex items-center gap-2 hover:text-blue-600">
               <RiAdminLine /> Admin Control
             </Link>
           </li>
-        </ul>
-      </div>
 
-      {/* Mobile navigation */}
-      <div className="lg:hidden fixed top-0 w-full bg-gray-800 text-white p-4 z-50">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="z-20">
-            <img src={logo} alt="Logo" className="w-10 h-10" />
-          </Link>
-          <h1 className="text-xl font-bold">AdminPanel</h1>
-          <button onClick={toggleMobileMenu} className="text-xl">
+          <div className="border-t my-4"></div>
+
+          <li>
+            <Link to="/" className="flex items-center gap-2 hover:text-blue-600">
+              <FaHome /> Home
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/profile" className="flex items-center gap-2 hover:text-blue-600">
+              <FaUserCircle /> Profile
+            </Link>
+          </li>
+        </ul>
+      </aside>
+
+      {/* ================= MOBILE HEADER ================= */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 bg-gray-900 text-white z-50 shadow-md">
+        <div className="flex items-center justify-between px-4 py-3">
+          <img src={logo} alt="Logo" className="w-10 h-10" />
+          <h1 className="text-lg font-bold">Admin Panel</h1>
+          <button onClick={() => setMobileMenuOpen(true)} className="text-2xl">
             <BsFillMenuButtonWideFill />
           </button>
         </div>
+      </div>
 
-        <Transition
-          show={mobileMenuOpen}
-          enter="transition-transform duration-300"
-          enterFrom="-translate-y-full"
-          enterTo="translate-y-0"
-          leave="transition-transform duration-300"
-          leaveFrom="translate-y-0"
-          leaveTo="-translate-y-full"
-        >
-          <div className="bg-gray-200 p-4 absolute top-0 left-0 right-0 mt-12 z-50">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold"></h2>
-              <button onClick={toggleMobileMenu} className="text-2xl text-gray-700">
+      {/* ================= MOBILE DRAWER ================= */}
+      <Transition
+        show={mobileMenuOpen}
+        enter="transition duration-300"
+        enterFrom="-translate-x-full"
+        enterTo="translate-x-0"
+        leave="transition duration-300"
+        leaveFrom="translate-x-0"
+        leaveTo="-translate-x-full"
+      >
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex">
+          <div className="w-64 bg-white h-full p-5 shadow-lg">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-bold">Menu</h2>
+              <button onClick={() => setMobileMenuOpen(false)} className="text-2xl">
                 <IoMdClose />
               </button>
             </div>
-            <ul className="menu text-gray-700 font-bold text-xl">
+
+            <ul className="space-y-4 font-semibold text-gray-700">
               <li>
-                <button onClick={() => handleMenuItemClick("/admin-panel/admin-overview")}>
+                <button onClick={() => handleMenuItemClick("/admin-panel/admin-overview")}
+                  className="flex items-center gap-2 w-full text-left">
                   <MdViewQuilt /> Admin Overview
                 </button>
               </li>
+
               <li>
-                <button onClick={() => handleMenuItemClick("/admin-panel/user-control")}>
+                <button onClick={() => handleMenuItemClick("/admin-panel/user-control")}
+                  className="flex items-center gap-2 w-full text-left">
                   <AiOutlineUsergroupAdd /> User Control
                 </button>
               </li>
+
               <li>
-                <button onClick={() => handleMenuItemClick("/admin-panel/earnings-update")}>
+                <button onClick={() => handleMenuItemClick("/admin-panel/earnings-update")}
+                  className="flex items-center gap-2 w-full text-left">
                   <MdAttachMoney /> Earnings Update
                 </button>
               </li>
+
               <li>
-                <button onClick={() => handleMenuItemClick("/admin-panel/admin-control")}>
+                <button onClick={() => handleMenuItemClick("/admin-panel/admin-control")}
+                  className="flex items-center gap-2 w-full text-left">
                   <RiAdminLine /> Admin Control
                 </button>
               </li>
 
-              <div className="divider"></div>
+              <div className="border-t my-4"></div>
 
               <li>
-                <button onClick={() => handleMenuItemClick("/")}>
+                <button onClick={() => handleMenuItemClick("/")}
+                  className="flex items-center gap-2 w-full text-left">
                   <FaHome /> Home
+                </button>
+              </li>
+
+              <li>
+                <button onClick={() => handleMenuItemClick("/profile")}
+                  className="flex items-center gap-2 w-full text-left">
+                  <FaUserCircle /> Profile
                 </button>
               </li>
             </ul>
           </div>
-        </Transition>
-      </div>
+        </div>
+      </Transition>
 
-      {/* Content area */}
-      <div className="lg:flex-grow mt-16 lg:mt-0">
+      {/* ================= CONTENT AREA ================= */}
+      <main className="flex-1 p-4 lg:p-8 mt-16 lg:mt-0 w-full overflow-x-hidden">
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 };
