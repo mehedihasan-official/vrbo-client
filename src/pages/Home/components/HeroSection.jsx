@@ -3,27 +3,33 @@ import HeroSectionImage from "../../../assets/images/hero-section-image.png";
 
 const HeroSection = () => {
   return (
-    <div className="relative min-h-[200px] md:min-h-[400px] lg:min-h-[500px] flex items-center justify-center">
+    <div className="relative min-h-[200px] md:min-h-[400px] lg:min-h-[400px]">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-start bg-no-repeat"
         style={{
           backgroundImage: `url(${HeroSectionImage})`,
         }}
       >
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black opacity-40"></div>
+        <div className="absolute  inset-0 bg-black opacity-40"></div>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 md:px-6 lg:px-8 text-center">
+      <div className="relative z-10 h-full container mx-auto px-4 md:px-6 lg:px-8">
         {/* Main Title */}
-        <h1 className="text-2xl sm:text-2xl md:text-2xl lg:text-3xl font-semibold mb-8 md:mb-10 text-white drop-shadow-lg">
-          Entire place, just for you
-        </h1>
+        <div className="pt-12 md:pt-16 text-center">
+          <h1 className="text-2xl sm:text-2xl md:text-2xl lg:text-4xl font-normal text-white drop-shadow-lg">
+            Entire place, just for you
+          </h1>
+        </div>
 
-        {/* Search Bar */}
-        <SearchBar />
+        {/* Search Bar - Absolute Bottom */}
+        <div className="absolute -bottom-80 left-0 right-0 px-4 md:px-6 lg:px-8 pb-6 md:pb-8">
+          <div className="container mx-auto">
+            <SearchBar />
+          </div>
+        </div>
       </div>
     </div>
   );
