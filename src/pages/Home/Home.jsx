@@ -7,6 +7,7 @@ import OneKeyBanner from "./components/OneKeyBanner";
 import PopularDestinations from "./components/PopularDestinations";
 import ValuePropsSection from "./components/ValuePropsSection";
 import PromotionalTiles from "./components/PromotionalTiles";
+import HostCTASection from "./components/HostCTASection";
 
 const Home = () => {
   return (
@@ -129,6 +130,9 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+       {/* Host CTA Section */}
+      <HostCTASection />
     </div>
   );
 };
