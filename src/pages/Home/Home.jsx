@@ -8,19 +8,20 @@ import PopularDestinations from "./components/PopularDestinations";
 import ValuePropsSection from "./components/ValuePropsSection";
 import PromotionalTiles from "./components/PromotionalTiles";
 import HostCTASection from "./components/HostCTASection";
+import HeroSection from "./components/HeroSection";
 
 const Home = () => {
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12">
+    <div className="container mx-auto ">
       {/* Title */}
       {/* <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-8 text-gray-900">
         Search vacation rentals
       </h1> */}
 
       
-
-      {/* Search Bar */}
-      <SearchBar />
+        {/* Hero Section */}
+        <HeroSection />
+      
 
        {/* One Key Membership Banner */}
       <OneKeyBanner />
