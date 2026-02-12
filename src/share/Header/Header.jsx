@@ -1,13 +1,18 @@
-import { useContext, useState, useEffect } from "react";
-import { Link, useLocation } from "react-router";
-import { MdMenu, MdClose } from "react-icons/md";
-import { FaUserCircle, FaSignOutAlt, FaHome, FaBuilding, FaEnvelope } from "react-icons/fa";
-import { IoMdDownload } from "react-icons/io";
+import { useContext, useEffect, useState } from "react";
+import {
+  FaBuilding,
+  FaEnvelope,
+  FaHome,
+  FaSignOutAlt,
+  FaUserCircle,
+} from "react-icons/fa";
 import { ImSpinner8 } from "react-icons/im";
+import { IoMdDownload } from "react-icons/io";
+import { MdClose, MdMenu } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
+import { Link, useLocation } from "react-router";
 import Swal from "sweetalert2";
 import logo from "../../../src/assets/vrbo_logo.svg";
-import ToggleMenu from "../../components/ToggleMenu/ToggleMenu";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Header = () => {
@@ -15,7 +20,6 @@ const Header = () => {
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
   const { user, usersData, loading, signOut, admin } = useContext(AuthContext);
   const location = useLocation();
-
 
   const isUserLoggedIn = !!user;
 
@@ -32,27 +36,30 @@ const Header = () => {
   // Close menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isMobileMenuOpen && !event.target.closest('.mobile-menu-container')) {
+      if (isMobileMenuOpen && !event.target.closest(".mobile-menu-container")) {
         closeMobileMenu();
       }
-      if (isProfileMenuOpen && !event.target.closest('.profile-menu-container')) {
+      if (
+        isProfileMenuOpen &&
+        !event.target.closest(".profile-menu-container")
+      ) {
         closeProfileMenu();
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMobileMenuOpen, isProfileMenuOpen]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isMobileMenuOpen]);
 
@@ -75,10 +82,12 @@ const Header = () => {
   const navItems = [
     { path: "/", label: "Home", icon: <FaHome /> },
     { path: "/resorts", label: "Resorts", icon: <FaBuilding /> },
-    { 
-      path: admin ? "/admin-panel/admin-overview" : "/hosting-dashboard/listings", 
+    {
+      path: admin
+        ? "/admin-panel/admin-overview"
+        : "/hosting-dashboard/listings",
       label: admin ? "Admin Panel" : "My Hosting",
-      icon: admin ? <RiAdminFill /> : <FaBuilding />
+      icon: admin ? <RiAdminFill /> : <FaBuilding />,
     },
     { path: "/contact", label: "Contact", icon: <FaEnvelope /> },
   ];
@@ -87,7 +96,7 @@ const Header = () => {
     <>
       {/* Backdrop Overlay */}
       {(isMobileMenuOpen || isProfileMenuOpen) && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300"
           onClick={() => {
             closeMobileMenu();
@@ -100,8 +109,15 @@ const Header = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
-            <Link to="/" className="flex-shrink-0 transition-transform hover:scale-105 duration-200">
-              <img src={logo} className="w-20 sm:w-24 md:w-28 lg:w-32" alt="VRBO Logo" />
+            <Link
+              to="/"
+              className="flex-shrink-0 transition-transform hover:scale-105 duration-200"
+            >
+              <img
+                src={logo}
+                className="w-20 sm:w-24 md:w-28 lg:w-32"
+                alt="VRBO Logo"
+              />
             </Link>
 
             {/* Desktop Navigation */}
@@ -119,7 +135,9 @@ const Header = () => {
                   {item.label}
                   <span
                     className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-200 ${
-                      isActiveLink(item.path) ? "w-full" : "w-0 group-hover:w-full"
+                      isActiveLink(item.path)
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
                     }`}
                   />
                 </Link>
@@ -131,7 +149,9 @@ const Header = () => {
               {/* Get the App Button */}
               <button className="hidden lg:flex items-center gap-2 rounded-full border-2 border-gray-300 px-4 py-2 hover:bg-gray-700 hover:text-white hover:border-gray-700 transition-all duration-200 group">
                 <IoMdDownload className="text-blue-500 group-hover:text-white text-xl" />
-                <span className="text-sm font-semibold whitespace-nowrap">Get the App</span>
+                <span className="text-sm font-semibold whitespace-nowrap">
+                  Get the App
+                </span>
               </button>
 
               {loading ? (
@@ -150,7 +170,7 @@ const Header = () => {
                   </button>
 
                   {/* Profile Picture */}
-                  <Link 
+                  <Link
                     to="hosting-dashboard/profile"
                     className="relative group"
                   >
@@ -243,7 +263,9 @@ const Header = () => {
                     <FaUserCircle className="text-6xl text-white/90" />
                   )}
                   <div>
-                    <h3 className="font-bold text-lg">{usersData?.name || "User"}</h3>
+                    <h3 className="font-bold text-lg">
+                      {usersData?.name || "User"}
+                    </h3>
                     <p className="text-sm text-white/80">{usersData?.email}</p>
                   </div>
                 </div>

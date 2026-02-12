@@ -3,7 +3,7 @@ import HeroSectionImage from "../../../assets/images/hero-section-image.png";
 
 const HeroSection = () => {
   return (
-    <div className="relative min-h-[200px] md:min-h-[400px] lg:min-h-[400px]">
+    <div className="relative min-h-[400px] md:min-h-[400px] lg:min-h-[400px]">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-start bg-no-repeat"
@@ -12,14 +12,14 @@ const HeroSection = () => {
         }}
       >
         {/* Overlay */}
-        <div className="absolute  inset-0 bg-black opacity-40"></div>
+        <div className="absolute  inset-0 bg-black opacity-50"></div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 h-full container mx-auto px-4 md:px-6 lg:px-8">
         {/* Main Title */}
-        <div className="pt-12 md:pt-16 text-center">
-          <h1 className="text-2xl sm:text-2xl md:text-2xl lg:text-4xl font-normal text-white drop-shadow-lg">
+        <div className="pt-12 md:pt-16 text-start md:text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-2xl lg:text-4xl font-normal text-white drop-shadow-lg">
             Entire place, just for you
           </h1>
         </div>
