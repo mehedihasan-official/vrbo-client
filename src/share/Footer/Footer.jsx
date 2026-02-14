@@ -76,8 +76,8 @@ const Footer = () => {
         </div>
 
         {/* Copyright Section */}
-        <div className="border-t border-gray-300 pt-6">
-          <p className="text-gray-600 text-xs md:text-sm">
+        <div className="border-t text-center border-gray-300 pt-6">
+          <p className="text-gray-700 text-xs">
             © 2026 Vrbo, an Expedia Group company. All rights reserved. Vrbo and the Vrbo logo are trademarks or registered trademarks of HomeAway.com, Inc.
           </p>
         </div>

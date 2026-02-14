@@ -11,7 +11,7 @@ const ResortSection = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-  const itemsPerPage = 3; // Changed from 9 to 3
+  const itemsPerPage = 8; // 2 rows × 4 cards = 8 cards per page
 
   const { hotelData } = useContext(AuthContext);
 
@@ -119,7 +119,7 @@ const ResortSection = () => {
   }
 
   return (
-    <div>
+    <div className="p-14">
       {/* Filter Section */}
       <div>
         <h1 className="text-2xl font-semibold p-4">Find your perfect place to stay</h1>
@@ -130,10 +130,10 @@ const ResortSection = () => {
             {selectedCategories.map((category, index) => (
               <button
                 key={index}
-                className={`flex items-center justify-center gap-2 px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg transition-all duration-300 whitespace-nowrap ${
+                className={`flex flex-col items-center justify-center gap-2 px-3 py-2 md:px-4 md:py-3 rounded-lg transition-all duration-300 whitespace-nowrap ${
                   selectedCategory === category
-                    ? "bg-blue-500 text-white border-blue-500 shadow-md"
-                    : "bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:border-blue-300"
+                    ? "text-blue-600 shadow-md"
+                    : "bg-white text-gray-700 hover:bg-blue-50 hover:border-blue-300"
                 }`}
                 onClick={() => setSelectedCategory(category)}
               >
@@ -149,15 +149,12 @@ const ResortSection = () => {
         </div>
 
         {/* Results count */}
-        <div className="mt-4 text-sm md:text-base text-gray-600">
-          Showing {filteredData.length} of{" "}
-          {filteredDataWithoutPagination.length} properties
-        </div>
+        
       </div>
 
-      {/* Cards Section */}
+      {/* Cards Section - 2 rows × 4 columns on desktop */}
       {filteredData.length > 0 ? (
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 md:mb-10">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-10">
           {filteredData.map((item, index) => (
             <Cards key={index} data={item} />
           ))}
