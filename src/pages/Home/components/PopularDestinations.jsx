@@ -1,56 +1,114 @@
-import { useState } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
+import { FaChevronLeft, FaChevronRight, FaStar } from "react-icons/fa";
 
 const PopularDestinations = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(4);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const carouselRef = useRef(null);
 
   // Sample destinations - replace with your actual data
   const destinations = [
     {
       id: 1,
-      name: "Logan",
+      name: "3 Bedrooms apartment @ Iqbal Road",
+      location: "Mohammadpur, Dhaka, Bangladesh",
+      city: "Dhaka",
+      flag: "🇧🇩",
       image: "https://images.trvl-media.com/place/8392/c5d09a27-bad5-47b3-a576-d978d338c3d4.jpg?impolicy=fcrop&w=469&h=201&p=1&q=medium",
-      description: "Hocking Hills region",
+      rating: 10.0,
+      ratingText: "Exceptional",
+      reviews: 2,
+      price: 79,
+      nights: 2,
     },
     {
       id: 2,
-      name: "Geneva-on-the-Lake",
+      name: "Luxury Beach Villa",
+      location: "Cox's Bazar, Chittagong, Bangladesh",
+      city: "Cox's Bazar",
+      flag: "🇧🇩",
       image: "https://images.trvl-media.com/place/6058849/45e3d730-1574-4221-a359-cb14e360f3fd.jpg?impolicy=fcrop&w=469&h=201&p=1&q=medium",
-      description: "Lake Erie destination",
+      rating: 9.8,
+      ratingText: "Exceptional",
+      reviews: 15,
+      price: 120,
+      nights: 2,
     },
     {
       id: 3,
-      name: "Rockbridge",
+      name: "Mountain View Cottage",
+      location: "Bandarban, Chittagong Hill Tracts, Bangladesh",
+      city: "Bandarban",
+      flag: "🇧🇩",
       image: "https://images.trvl-media.com/place/6296770/59fb5d73-891a-440d-940d-a4ba6f65e4f5.jpg?impolicy=fcrop&w=469&h=201&p=1&q=medium",
-      description: "Nature preserve area",
+      rating: 9.6,
+      ratingText: "Wonderful",
+      reviews: 8,
+      price: 95,
+      nights: 2,
     },
     {
       id: 4,
-      name: "South Bloomingville",
+      name: "Modern City Apartment",
+      location: "Gulshan, Dhaka, Bangladesh",
+      city: "Dhaka",
+      flag: "🇧🇩",
       image: "https://images.trvl-media.com/place/183806/26daabff-4166-44bd-b9f8-cad90c07c4bf.jpg?impolicy=fcrop&w=469&h=201&p=1&q=medium",
-      description: "Scenic hiking spots",
+      rating: 9.4,
+      ratingText: "Wonderful",
+      reviews: 12,
+      price: 110,
+      nights: 2,
     },
     {
       id: 5,
-      name: "Miami Beach",
+      name: "Riverside Resort",
+      location: "Sylhet, Sylhet Division, Bangladesh",
+      city: "Sylhet",
+      flag: "🇧🇩",
       image: "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=500&q=80",
-      description: "Beautiful beaches",
+      rating: 9.2,
+      ratingText: "Wonderful",
+      reviews: 20,
+      price: 85,
+      nights: 2,
     },
     {
       id: 6,
-      name: "Aspen",
+      name: "Heritage House",
+      location: "Old Dhaka, Dhaka, Bangladesh",
+      city: "Dhaka",
+      flag: "🇧🇩",
       image: "https://images.unsplash.com/photo-1605540436563-5bca919ae766?w=500&q=80",
-      description: "Mountain paradise",
+      rating: 9.0,
+      ratingText: "Excellent",
+      reviews: 6,
+      price: 65,
+      nights: 2,
     },
   ];
 
-  const itemsPerView = {
-    mobile: 1,
-    tablet: 2,
-    desktop: 4,
-  };
+  // Update items per view based on screen size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerView(1); // Mobile
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(2); // Tablet
+      } else {
+        setItemsPerView(4); // Desktop
+      }
+      setCurrentIndex(0); // Reset to first slide on resize
+    };
 
-  const maxIndex = destinations.length - itemsPerView.desktop;
+    handleResize(); // Set initial value
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const maxIndex = Math.max(0, destinations.length - itemsPerView);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => Math.max(0, prev - 1));
@@ -58,6 +116,34 @@ const PopularDestinations = () => {
 
   const handleNext = () => {
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+  };
+
+  // Touch handlers for swipe
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && currentIndex < maxIndex) {
+      handleNext();
+    }
+    if (isRightSwipe && currentIndex > 0) {
+      handlePrev();
+    }
+
+    // Reset values
+    setTouchStart(0);
+    setTouchEnd(0);
   };
 
   return (
@@ -70,61 +156,143 @@ const PopularDestinations = () => {
 
         {/* Carousel Container */}
         <div className="relative">
-          {/* Navigation Buttons */}
-          <button
-            onClick={handlePrev}
-            disabled={currentIndex === 0}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all ${
-              currentIndex === 0 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
-            }`}
-            aria-label="Previous destinations"
-          >
-            <FaChevronLeft className="text-xl text-gray-700" />
-          </button>
+          {/* Navigation Buttons - Hidden on Mobile */}
+          {currentIndex > 0 && (
+            <button
+              onClick={handlePrev}
+              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 items-center justify-center"
+              aria-label="Previous destinations"
+            >
+              <FaChevronLeft className="text-xl text-gray-700" />
+            </button>
+          )}
 
-          <button
-            onClick={handleNext}
-            disabled={currentIndex >= maxIndex}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all ${
-              currentIndex >= maxIndex ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
-            }`}
-            aria-label="Next destinations"
-          >
-            <FaChevronRight className="text-xl text-gray-700" />
-          </button>
+          {currentIndex < maxIndex && (
+            <button
+              onClick={handleNext}
+              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 items-center justify-center"
+              aria-label="Next destinations"
+            >
+              <FaChevronRight className="text-xl text-gray-700" />
+            </button>
+          )}
 
-          {/* Cards Container */}
-          <div className="overflow-hidden">
+          {/* Mobile Arrow Buttons */}
+          {currentIndex > 0 && (
+            <button
+              onClick={handlePrev}
+              className="md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md active:scale-95 transition-all"
+              aria-label="Previous"
+            >
+              <FaChevronLeft className="text-lg text-gray-700" />
+            </button>
+          )}
+
+          {currentIndex < maxIndex && (
+            <button
+              onClick={handleNext}
+              className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md active:scale-95 transition-all"
+              aria-label="Next"
+            >
+              <FaChevronRight className="text-lg text-gray-700" />
+            </button>
+          )}
+
+          {/* Cards Container with Touch Support */}
+          <div 
+            className="overflow-hidden touch-pan-y"
+            ref={carouselRef}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <div
-              className="flex transition-transform duration-300 ease-in-out gap-4"
+              className="flex transition-transform duration-500 ease-out"
               style={{
-                transform: `translateX(-${currentIndex * (100 / itemsPerView.desktop + 1)}%)`,
+                transform: `translateX(-${currentIndex * 100}%)`,
+                gap: itemsPerView === 1 ? '0px' : '16px',
               }}
             >
               {destinations.map((destination) => (
                 <div
                   key={destination.id}
-                  className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4"
+                  className="flex-shrink-0 px-1 md:px-0"
+                  style={{ 
+                    width: itemsPerView === 1 
+                      ? '100%' 
+                      : `calc(${100 / itemsPerView}% - ${12}px)` 
+                  }}
                 >
-                  <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
-                    <div className="relative overflow-hidden h-48">
+                  <div className="bg-white rounded-xl overflow-hidden  hover:shadow-xl transition-shadow duration-300 cursor-pointer group h-full  ">
+                    {/* Image */}
+                    <div className="relative overflow-hidden h-48 md:h-52">
                       <img
                         src={destination.image}
                         alt={destination.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform rounded-3xl duration-500"
                       />
                     </div>
+
+                    {/* Content */}
                     <div className="p-4">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                        {destination.name}
+                      {/* Property Title with Flag */}
+                      <div className="mb-2">
+                        <p className="text-base  font-semibold  text-gray-700 line-clamp-2">
+                          <span className="mr-1">{destination.flag}</span>
+                          {destination.name} @ {destination.location}
+                        </p>
+                      </div>
+
+                      {/* City */}
+                      <h3 className="text-sm font-base text-gray-700 mb-3">
+                        {destination.city}
                       </h3>
-                      <p className="text-sm text-gray-600">{destination.description}</p>
+
+                      {/* Rating */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="flex items-center gap-1 bg-[#127d3b] text-white px-2 py-1 rounded text-xs font-semibold">
+                          <span>{destination.rating}</span>
+                        </div>
+                        <span className="text-sm text-gray-500">
+                          ({destination.reviews} {destination.reviews === 1 ? 'review' : 'reviews'})
+                        </span>
+                      </div>
+
+                      {/* Price */}
+                      <div className="border-t border-gray-200 pt-3">
+                        <div className="flex items-baseline gap-1 mb-1">
+                      
+                          <span className="text-lg font-bold text-gray-700">${destination.price}</span>
+                        </div>
+                        <p className="text-sm text-gray-600">
+                          ${destination.price * destination.nights} for {destination.nights} nights
+                        </p>
+                        <p className="text-xs text-[#127d3b] mt-1">
+                          All fees included
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Dots Indicator */}
+        <div className="flex justify-center gap-2 mt-8">
+          {Array.from({ length: destinations.length }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(Math.min(index, maxIndex))}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index >= currentIndex && index < currentIndex + itemsPerView
+                  ? "bg-blue-600 w-8" 
+                  : "bg-gray-300 w-2 hover:bg-gray-400"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </div>

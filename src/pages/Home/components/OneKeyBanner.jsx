@@ -2,7 +2,7 @@ import { FaStar } from "react-icons/fa";
 
 const OneKeyBanner = () => {
   return (
-    <div className="bg-[#191E3B] py-6 md:py-8">
+    <div className="bg-[#191E3B] py-6 m-4 rounded-2xl md:py-8">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left max-w-4xl mx-auto">
           <div className="flex items-center gap-2 text-white">
