@@ -121,6 +121,9 @@ const ResortSection = () => {
   return (
     <div>
       {/* Filter Section */}
+      <div>
+        <h1 className="text-2xl font-semibold p-4">Find your perfect place to stay</h1>
+      </div>
       <div className="flex flex-col justify-center items-center mb-8 md:mb-10">
         <div className="w-full overflow-x-auto pb-2">
           <div className="flex justify-start md:justify-center gap-2 md:gap-3 min-w-max md:min-w-0 px-2">
