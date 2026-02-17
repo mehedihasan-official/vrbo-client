@@ -1,27 +1,28 @@
 import { useContext, useEffect, useState } from "react";
-import { FaTree, FaUmbrellaBeach, FaWarehouse } from "react-icons/fa";
+import { FaLongArrowAltRight, FaTree, FaUmbrellaBeach, FaWarehouse } from "react-icons/fa";
 import { GiIsland } from "react-icons/gi";
 import { MdHouseboat } from "react-icons/md";
 import Cards from "../../../components/Cards/Cards";
 import Loading from "../../../components/Loading";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { IoHome, IoHomeOutline } from "react-icons/io5";
+import { Link } from "react-router";
 
 const ResortSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-  const itemsPerPage = 8; // 2 rows × 4 cards = 8 cards per page
+  const itemsPerPage = 8;
 
   const { hotelData } = useContext(AuthContext);
 
   useEffect(() => {
-    if (hotelData && hotelData.length > 0) {
+    if (hotelData && hotelData.length >= 0) {
       setLoading(false);
     }
   }, [hotelData]);
 
-  // Reset to page 1 when category or search changes
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedCategory, searchTerm]);
@@ -36,7 +37,7 @@ const ResortSection = () => {
   ];
 
   const categoryIcons = {
-    All: "🏠",
+    All: <IoHome />,
     Tropical: <FaTree />,
     Beach: <FaUmbrellaBeach />,
     "Tiny homes": <MdHouseboat />,
@@ -44,30 +45,28 @@ const ResortSection = () => {
     Islands: <GiIsland />,
   };
 
-  // Filter data based on category and search term
   const filteredDataWithoutPagination = hotelData
     ? hotelData
         .filter(
           (item) =>
-            selectedCategory === "All" || item.category === selectedCategory,
+            selectedCategory === "All" || item.category === selectedCategory
         )
         .filter(
           (item) =>
             (item.name &&
               item.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
             (item.location &&
-              item.location.toLowerCase().includes(searchTerm.toLowerCase())),
+              item.location.toLowerCase().includes(searchTerm.toLowerCase()))
         )
     : [];
 
-  // Apply pagination
   const filteredData = filteredDataWithoutPagination.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage,
+    currentPage * itemsPerPage
   );
 
   const totalPages = Math.ceil(
-    filteredDataWithoutPagination.length / itemsPerPage,
+    filteredDataWithoutPagination.length / itemsPerPage
   );
 
   const handlePageChange = (newPage) => {
@@ -77,7 +76,6 @@ const ResortSection = () => {
     }
   };
 
-  // Generate page numbers for pagination
   const getPageNumbers = () => {
     const pages = [];
     const maxPagesToShow = 5;
@@ -96,7 +94,7 @@ const ResortSection = () => {
           totalPages - 3,
           totalPages - 2,
           totalPages - 1,
-          totalPages,
+          totalPages
         );
       } else {
         pages.push(
@@ -106,7 +104,7 @@ const ResortSection = () => {
           currentPage,
           currentPage + 1,
           "...",
-          totalPages,
+          totalPages
         );
       }
     }
@@ -119,67 +117,91 @@ const ResortSection = () => {
   }
 
   return (
-    <div className="p-14">
-      {/* Filter Section */}
+    <div className="p-6 md:p-10 lg:p-14">
+      {/* Heading */}
       <div>
-        <h1 className="text-2xl font-semibold p-4">Find your perfect place to stay</h1>
+        <h1 className="text-2xl md:text-3xl font-semibold mb-6">
+          Find your perfect place to stay
+        </h1>
       </div>
-      <div className="flex flex-col justify-center items-center mb-8 md:mb-10">
+
+      {/* Filter Section */}
+      <div className="flex flex-col justify-center items-center mb-10">
         <div className="w-full overflow-x-auto pb-2">
-          <div className="flex justify-start md:justify-center gap-2 md:gap-3 min-w-max md:min-w-0 px-2">
-            {selectedCategories.map((category, index) => (
-              <button
-                key={index}
-                className={`flex flex-col items-center justify-center gap-2 px-3 py-2 md:px-4 md:py-3 rounded-lg transition-all duration-300 whitespace-nowrap ${
-                  selectedCategory === category
-                    ? "text-blue-600 shadow-md"
-                    : "bg-white text-gray-700 hover:bg-blue-50 hover:border-blue-300"
-                }`}
-                onClick={() => setSelectedCategory(category)}
-              >
-                <span className="text-lg md:text-xl">
-                  {categoryIcons[category]}
-                </span>
-                <span className="text-sm md:text-base font-medium">
-                  {category}
-                </span>
-              </button>
-            ))}
+          <div className="flex justify-start md:justify-center gap-6 min-w-max md:min-w-0 px-2">
+            {selectedCategories.map((category, index) => {
+              const isActive = selectedCategory === category;
+
+              return (
+                <div>
+
+                </div>,
+                <Link
+                  key={index}
+                  onClick={() => setSelectedCategory(category)}
+                  className="relative flex flex-col items-center gap-1 transition-all duration-300 whitespace-nowrap"
+                >
+                  {/* Icon */}
+                  <span
+                    className={`transition-all duration-300 ${
+                      isActive
+                        ? "text-blue-600 text-base md:text-lg scale-90"
+                        : "text-gray-600 text-lg md:text-xl hover:text-blue-500"
+                    }`}
+                  >
+                    {categoryIcons[category]}
+                  </span>
+
+                  {/* Label */}
+                  <span
+                    className={`text-sm md:text-base font-medium transition-colors duration-300 ${
+                      isActive ? "text-blue-600" : "text-gray-700"
+                    }`}
+                  >
+                    {category}
+                  </span>
+
+                  {/* Underline Indicator */}
+                  <span
+                    className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-[3px] w-6 rounded-full transition-all duration-300 ${
+                      isActive ? "bg-blue-600 opacity-100" : "opacity-0"
+                    }`}
+                  ></span>
+                </Link>
+              );
+            })}
           </div>
         </div>
-
-        {/* Results count */}
-        
       </div>
 
-      {/* Cards Section - 2 rows × 4 columns on desktop */}
+      {/* Cards Section */}
       {filteredData.length > 0 ? (
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-10">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
           {filteredData.map((item, index) => (
             <Cards key={index} data={item} />
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 md:py-16">
-          <div className="text-gray-400 text-6xl md:text-7xl mb-4">🏠</div>
+        <div className="text-center py-16">
+          <div className="text-gray-400 text-6xl mb-4">🏠</div>
           <h3 className="text-xl md:text-2xl font-semibold text-gray-700 mb-2">
             No properties found
           </h3>
-          <p className="text-gray-500 text-sm md:text-base">
+          <p className="text-gray-500">
             Try adjusting your filters or search criteria
           </p>
         </div>
       )}
 
-      {/* Pagination Section */}
+      {/* Pagination */}
       {filteredData.length > 0 && totalPages > 1 && (
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 my-8 md:my-12">
-          {/* Previous Button */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 my-12">
+          {/* Previous */}
           <button
             className={`px-4 py-2 rounded-lg font-medium transition-all ${
               currentPage === 1
                 ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                : "bg-white border-2 border-gray-300 text-gray-700 hover:bg-blue-50 hover:border-blue-400"
+                : "bg-white border border-gray-300 text-gray-700 hover:bg-blue-50 hover:border-blue-400"
             }`}
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
@@ -188,7 +210,7 @@ const ResortSection = () => {
           </button>
 
           {/* Page Numbers */}
-          <div className="flex items-center gap-1 md:gap-2">
+          <div className="flex items-center gap-2">
             {getPageNumbers().map((page, index) => (
               <button
                 key={index}
@@ -196,8 +218,8 @@ const ResortSection = () => {
                   page === "..."
                     ? "cursor-default text-gray-400"
                     : page === currentPage
-                      ? "bg-blue-500 text-white shadow-md"
-                      : "bg-white border-2 border-gray-300 text-gray-700 hover:bg-blue-50 hover:border-blue-400"
+                    ? "bg-blue-500 text-white shadow-md"
+                    : "bg-white border border-gray-300 text-gray-700 hover:bg-blue-50 hover:border-blue-400"
                 }`}
                 onClick={() => page !== "..." && handlePageChange(page)}
                 disabled={page === "..."}
@@ -207,12 +229,12 @@ const ResortSection = () => {
             ))}
           </div>
 
-          {/* Next Button */}
+          {/* Next */}
           <button
             className={`px-4 py-2 rounded-lg font-medium transition-all ${
               currentPage === totalPages
                 ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                : "bg-white border-2 border-gray-300 text-gray-700 hover:bg-blue-50 hover:border-blue-400"
+                : "bg-white border border-gray-300 text-gray-700 hover:bg-blue-50 hover:border-blue-400"
             }`}
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
@@ -221,6 +243,10 @@ const ResortSection = () => {
           </button>
         </div>
       )}
+      <Link className="flex items-center gap-2 text-blue-500" to="/resorts">
+      <p className="text-blue-600">View More Properties </p>
+      <FaLongArrowAltRight />
+      </Link>
     </div>
   );
 };
