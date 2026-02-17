@@ -11,6 +11,7 @@ import HostCTASection from "./components/HostCTASection";
 import HeroSection from "./components/HeroSection";
 import EarlyBooking from "./components/EarlyBooking";
 import OneKeyCard from "./components/OneKeyCard";
+import ListProperty from "./components/ListProperty";
 
 const Home = () => {
   return (
@@ -40,11 +41,16 @@ const Home = () => {
         {/* Early booking section */}
       <EarlyBooking />
 
+      
+      {/* One key card section */}
+      <OneKeyCard />
+
        {/* Promotional Tiles */}
       <PromotionalTiles />
 
-      {/* One key card section */}
-      <OneKeyCard />
+      {/* List Property */}
+      <ListProperty />
+
 
       {/* Membership Info */}
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center text-gray-700 px-2 md:px-4 max-w-6xl mx-auto text-sm md:text-base lg:text-lg my-8 md:my-12">
