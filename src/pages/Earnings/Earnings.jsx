@@ -1,36 +1,39 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useMemo } from "react";
 import {
-  BarChart,
   Bar,
-  XAxis,
-  YAxis,
+  BarChart,
   CartesianGrid,
-  Tooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
-import { AuthContext } from '../../providers/AuthProvider';
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Earnings = () => {
   const { yearlyEarnings } = useContext(AuthContext);
+  console.log(yearlyEarnings)
 
   // Convert data to chart/table-friendly format
   const formattedEarnings = useMemo(() => {
     if (!Array.isArray(yearlyEarnings)) return [];
-  
-    return yearlyEarnings.map(item => ({
+
+    return yearlyEarnings.map((item) => ({
       year: item.year,
-      "Amount Earned": item.amount
+      "Amount Earned": item.amount,
     }));
   }, [yearlyEarnings]);
-  
+
   const formatCurrency = (value) => {
-    return value.toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).replace('$', '');
+    return value
+      .toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })
+      .replace("$", "");
   };
 
   // Custom tooltip for better mobile experience
@@ -62,14 +65,18 @@ const Earnings = () => {
         {/* Chart */}
         {formattedEarnings.length > 0 ? (
           <div className="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-md">
-            <ResponsiveContainer width="100%" height={250} className="sm:hidden">
+            <ResponsiveContainer
+              width="100%"
+              height={250}
+              className="sm:hidden"
+            >
               <BarChart
                 data={formattedEarnings}
                 margin={{ top: 5, right: 10, left: -20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                <XAxis 
-                  dataKey="year" 
+                <XAxis
+                  dataKey="year"
                   tick={{ fontSize: 11 }}
                   angle={-45}
                   textAnchor="end"
@@ -81,20 +88,25 @@ const Earnings = () => {
                   width={45}
                 />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="Amount Earned" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                <Bar
+                  dataKey="Amount Earned"
+                  fill="#3b82f6"
+                  radius={[4, 4, 0, 0]}
+                />
               </BarChart>
             </ResponsiveContainer>
 
-            <ResponsiveContainer width="100%" height={300} className="hidden sm:block md:hidden">
+            <ResponsiveContainer
+              width="100%"
+              height={300}
+              className="hidden sm:block md:hidden"
+            >
               <BarChart
                 data={formattedEarnings}
                 margin={{ top: 10, right: 20, left: 0, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                <XAxis 
-                  dataKey="year" 
-                  tick={{ fontSize: 12 }}
-                />
+                <XAxis dataKey="year" tick={{ fontSize: 12 }} />
                 <YAxis
                   tick={{ fontSize: 12 }}
                   tickFormatter={(value) =>
@@ -105,21 +117,26 @@ const Earnings = () => {
                   }
                 />
                 <Tooltip content={<CustomTooltip />} />
-                <Legend wrapperStyle={{ fontSize: '14px' }} />
-                <Bar dataKey="Amount Earned" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+                <Legend wrapperStyle={{ fontSize: "14px" }} />
+                <Bar
+                  dataKey="Amount Earned"
+                  fill="#3b82f6"
+                  radius={[6, 6, 0, 0]}
+                />
               </BarChart>
             </ResponsiveContainer>
 
-            <ResponsiveContainer width="100%" height={350} className="hidden md:block">
+            <ResponsiveContainer
+              width="100%"
+              height={350}
+              className="hidden md:block"
+            >
               <BarChart
                 data={formattedEarnings}
                 margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                <XAxis 
-                  dataKey="year" 
-                  tick={{ fontSize: 14 }}
-                />
+                <XAxis dataKey="year" tick={{ fontSize: 14 }} />
                 <YAxis
                   tick={{ fontSize: 14 }}
                   tickFormatter={(value) =>
@@ -130,14 +147,20 @@ const Earnings = () => {
                   }
                 />
                 <Tooltip content={<CustomTooltip />} />
-                <Legend wrapperStyle={{ fontSize: '14px' }} />
-                <Bar dataKey="Amount Earned" fill="#3b82f6" radius={[8, 8, 0, 0]} />
+                <Legend wrapperStyle={{ fontSize: "14px" }} />
+                <Bar
+                  dataKey="Amount Earned"
+                  fill="#3b82f6"
+                  radius={[8, 8, 0, 0]}
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
         ) : (
           <div className="bg-gray-50 p-6 md:p-8 rounded-lg text-center">
-            <p className="text-gray-500 text-sm md:text-base">No earnings data available</p>
+            <p className="text-gray-500 text-sm md:text-base">
+              No earnings data available
+            </p>
           </div>
         )}
       </div>
@@ -166,10 +189,10 @@ const Earnings = () => {
               <tbody>
                 {formattedEarnings.length > 0 ? (
                   formattedEarnings.map((entry, index) => (
-                    <tr 
+                    <tr
                       key={entry.year}
                       className={`hover:bg-blue-50 transition-colors ${
-                        index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                        index % 2 === 0 ? "bg-white" : "bg-gray-50"
                       }`}
                     >
                       <td className="border border-gray-300 py-2 sm:py-3 md:py-4 px-3 sm:px-4 md:px-6 text-left text-xs sm:text-sm md:text-base font-medium text-gray-800">
@@ -182,8 +205,8 @@ const Earnings = () => {
                   ))
                 ) : (
                   <tr>
-                    <td 
-                      colSpan="2" 
+                    <td
+                      colSpan="2"
                       className="border border-gray-300 py-6 md:py-8 text-center text-gray-500 text-sm md:text-base"
                     >
                       No earnings data available
@@ -198,8 +221,12 @@ const Earnings = () => {
                       Total
                     </td>
                     <td className="border border-gray-300 py-2 sm:py-3 md:py-4 px-3 sm:px-4 md:px-6 text-right text-xs sm:text-sm md:text-base text-blue-700">
-                      ${formatCurrency(
-                        formattedEarnings.reduce((sum, entry) => sum + entry["Amount Earned"], 0)
+                      $
+                      {formatCurrency(
+                        formattedEarnings.reduce(
+                          (sum, entry) => sum + entry["Amount Earned"],
+                          0,
+                        ),
                       )}
                     </td>
                   </tr>
@@ -207,11 +234,13 @@ const Earnings = () => {
               )}
             </table>
           </div>
-          
+
           {/* Mobile scroll hint */}
           {formattedEarnings.length > 0 && (
             <div className="sm:hidden bg-gray-50 px-4 py-2 text-center">
-              <p className="text-xs text-gray-500">← Scroll horizontally to view all data →</p>
+              <p className="text-xs text-gray-500">
+                ← Scroll horizontally to view all data →
+              </p>
             </div>
           )}
         </div>
