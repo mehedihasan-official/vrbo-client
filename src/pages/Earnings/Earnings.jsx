@@ -13,7 +13,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 const Earnings = () => {
   const { yearlyEarnings } = useContext(AuthContext);
-  console.log(yearlyEarnings)
+  
 
   // Convert data to chart/table-friendly format
   const formattedEarnings = useMemo(() => {
