@@ -9,6 +9,7 @@ import ValuePropsSection from "./components/ValuePropsSection";
 import PromotionalTiles from "./components/PromotionalTiles";
 import HostCTASection from "./components/HostCTASection";
 import HeroSection from "./components/HeroSection";
+import EarlyBooking from "./components/EarlyBooking";
 
 const Home = () => {
   return (
@@ -34,6 +35,9 @@ const Home = () => {
 
        {/* Value Props Section */}
       <ValuePropsSection />
+
+        {/* Early booking section */}
+      <EarlyBooking />
 
        {/* Promotional Tiles */}
       <PromotionalTiles />
