@@ -3,7 +3,7 @@ import { Link } from "react-router"; // Make sure it's from react-router-dom
 
 const ListingCard = ({ item, index }) => {
   return (
-    <Link to={`/single-resort/${item.id}`}>
+    <Link to={`/hosting-dashboard/individual-earnings/${item.id}`}>
       <div className="border rounded border-gray-200 mb-4 md:mb-4 p-4 flex items-center justify-between cursor-pointer">
         <div className="flex items-center gap-10">
           <div className="avatar">
