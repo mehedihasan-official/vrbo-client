@@ -66,7 +66,7 @@ const Cards = ({ data = {} }) => {
 
             {/* Location */}
             <h2 className="text-lg font-semibold text-gray-900">
-              {location || "Unknown location"}
+              {title || "Unknown location"}
             </h2>
 
             {/* Property Details */}
@@ -91,7 +91,7 @@ const Cards = ({ data = {} }) => {
               {/* Price */}
               <div className="text-right">
                 <p className="text-xl font-bold text-gray-900">
-                  ${price || 568}
+                  {price || 568}
                 </p>
                 <p className="text-xs text-gray-600">
                   avg per night

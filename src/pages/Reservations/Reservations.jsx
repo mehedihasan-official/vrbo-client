@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import InfoCard from '../../components/InfoCard/InfoCard';
 import { AuthContext } from '../../providers/AuthProvider';
+import Cards from '../../components/Cards/Cards';
 
 const Reservations = () => {
   const [filteredData, setFilteredData] = useState([]);
@@ -49,7 +50,7 @@ const Reservations = () => {
     }
 
     return filteredData.map((item, index) => (
-      <InfoCard key={index} data={item} />
+      <Cards key={index} data={item} />
     ));
   };
 

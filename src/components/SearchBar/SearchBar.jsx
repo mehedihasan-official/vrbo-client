@@ -53,7 +53,7 @@ const SearchBar = () => {
           </div>
 
           {/* Search Button */}
-          <button className="w-full lg:w-auto bg-[#1668e3] text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-600 active:bg-blue-700 transition-all shadow-md hover:shadow-lg whitespace-nowrap">
+          <button className="w-full lg:w-auto bg-[#1668e3] text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-600 active:bg-blue-700 transition-all hover:shadow-lg whitespace-nowrap">
             Search
           </button>
         </div>
