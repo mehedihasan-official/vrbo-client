@@ -32,7 +32,7 @@ const Cards = ({ data = {} }) => {
 
   return (
     <div className="w-full max-w-sm mx-auto">
-      <Link to={`/resort/${id}`} className="block">
+      <Link to={`/singleResort/${id}`} className="block">
         <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden transition hover:shadow-md">
 
           {/* Image Section */}
