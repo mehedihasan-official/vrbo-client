@@ -21,7 +21,7 @@ const InfoCard = ({
 
   return (
     <div className="w-full max-w-md mx-auto lg:max-w-lg">
-      <Link to={`/resort/${id}`} className="block group">
+      <Link to={`/singleResort/${id}`} className="block group">
         <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 group-hover:-translate-y-1">
           {/* Image Section */}
           <div className="relative overflow-hidden">
