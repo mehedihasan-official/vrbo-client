@@ -44,7 +44,7 @@ const DesktopResponsive = ({
       {loading ? (
         <Loading className="animate-spin text-xl text-blue-600" />
       ) : isUserLoggedIn ? (
-        <Link className="flex items-center gap-4" to='/hosting-dashboard'>
+        <Link className="flex items-center gap-4" to='/hosting-dashboard/listings'>
           <button onClick={handleSignOut}>
             <FaSignOutAlt className="text-xl text-gray-600 hover:text-red-600" />
           </button>

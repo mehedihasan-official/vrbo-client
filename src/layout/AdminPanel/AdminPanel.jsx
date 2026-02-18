@@ -4,6 +4,7 @@ import { Transition } from "@headlessui/react";
 import {
   MdViewQuilt,
   MdAttachMoney,
+  MdAddHome,
 } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
@@ -53,6 +54,13 @@ const AdminPanel = () => {
               <RiAdminLine /> Admin Control
             </Link>
           </li>
+
+          <li>
+              <Link to="/admin-panel/create-new-list" className="flex items-center gap-2 hover:text-blue-600">
+                <MdAddHome /> Create a new list
+              </Link>
+            </li>
+
 
           <div className="border-t my-4"></div>
 

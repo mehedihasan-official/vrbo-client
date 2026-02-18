@@ -1,13 +1,10 @@
 import { FaCheck } from "react-icons/fa";
-import image1 from "../../assets/images/Home-page_standard.avif";
-import image2 from "../../assets/images/Home-page_standard.webp";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import ResortSection from "./components/ResortSection";
 import OneKeyBanner from "./components/OneKeyBanner";
 import PopularDestinations from "./components/PopularDestinations";
 import ValuePropsSection from "./components/ValuePropsSection";
 import PromotionalTiles from "./components/PromotionalTiles";
-import HostCTASection from "./components/HostCTASection";
 import HeroSection from "./components/HeroSection";
 import EarlyBooking from "./components/EarlyBooking";
 import OneKeyCard from "./components/OneKeyCard";
@@ -53,8 +50,6 @@ const Home = () => {
 
 
 
-       {/* Host CTA Section */}
-      <HostCTASection />
     </div>
   );
 };

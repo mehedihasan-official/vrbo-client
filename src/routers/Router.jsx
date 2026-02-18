@@ -17,6 +17,7 @@ import UpdateEarnings from "../pages/UpdateEarnings/UpdateEarnings";
 import UserControl from "../pages/UserControl/UserControl";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage"
 import SingleResortPage from "../components/SingleResortPage/SingleResortPage";
+import CreateNewList from "../pages/CreateNewList/CreateNewList";
 
 export const router = createBrowserRouter([
   {
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
       {
         path: 'user-control',
         element: <UserControl />
+      },
+      {
+        path: 'create-new-list',
+        element: <CreateNewList/>
       },
       // Catch-all for admin-panel routes
       {

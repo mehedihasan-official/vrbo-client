@@ -62,12 +62,7 @@ const HostingDashboard = () => {
                 <PiBookOpenText /> Guidebooks
               </Link>
             </li>
-            <li>
-              <Link to="create-new-list">
-                <MdAddHome /> Create a new list
-              </Link>
-            </li>
-
+            
             <div className="border border-gray-400 my-4"></div>
 
             <li>
