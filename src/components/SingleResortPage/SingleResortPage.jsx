@@ -17,12 +17,12 @@ const SingleResortPage = () => {
 
   if (!resort) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-3 text-red-600">
             Resort Not Found
           </h1>
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 dark:text-gray-400 text-sm">
             Please check the URL or try another listing.
           </p>
         </div>
@@ -36,10 +36,11 @@ const SingleResortPage = () => {
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-6 pb-16">
+    <div className="max-w-6xl mx-auto px-6 pb-16 bg-white dark:bg-gray-950 transition-colors duration-300">
+
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-xs text-gray-500 py-3">
-        <a href="/" className="text-blue-600 hover:underline">
+      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 py-3">
+        <a href="/" className="text-blue-600 dark:text-blue-400 hover:underline">
           Home
         </a>
         <span>›</span>
@@ -67,11 +68,11 @@ const SingleResortPage = () => {
       </div>
 
       {/* Important Information Banner */}
-      <div className="mt-10 bg-amber-50 border border-amber-200 rounded-2xl p-5">
-        <h3 className="font-extrabold text-base text-amber-800 mb-2">
+      <div className="mt-10 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-2xl p-5 transition-colors duration-300">
+        <h3 className="font-extrabold text-base text-amber-800 dark:text-amber-400 mb-2">
           ⚠️ Important information
         </h3>
-        <p className="text-sm text-amber-700 leading-relaxed">
+        <p className="text-sm text-amber-700 dark:text-amber-300 leading-relaxed">
           This property requires a security deposit of $500 due at time of
           booking. Cancellation policy: Full refund if cancelled 30+ days before
           check-in. 50% refund if cancelled 14–29 days before. No refund within

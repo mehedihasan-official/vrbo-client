@@ -14,8 +14,8 @@ import { Link, useLocation } from "react-router";
 import Swal from "sweetalert2";
 import logo from "../../../src/assets/vrbo_logo.svg";
 import { AuthContext } from "../../providers/AuthProvider";
-import DesktopResponsive from "./HeaderComponents/DesktopResponsive"
-import MobileResponsive from "./HeaderComponents/MobileResponsive"
+import DesktopResponsive from "./HeaderComponents/DesktopResponsive";
+import MobileResponsive from "./HeaderComponents/MobileResponsive";
 
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -57,7 +57,7 @@ const Header = () => {
   }, [location.pathname]);
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-md">
+    <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md dark:shadow-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
 
@@ -84,6 +84,7 @@ const Header = () => {
             isMobileMenuOpen={isMobileMenuOpen}
             setMobileMenuOpen={setMobileMenuOpen}
           />
+
         </div>
       </div>
     </header>

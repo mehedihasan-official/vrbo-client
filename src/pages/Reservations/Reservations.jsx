@@ -16,12 +16,8 @@ const Reservations = () => {
     let result = [];
 
     if (filter === "All") {
-      // Show all Farms category (original behavior)
-      result = hotelData.filter(
-        (item) => item.category === "Farms"
-      );
+      result = hotelData.filter((item) => item.category === "Farms");
     } else {
-      // Filter by status (case-insensitive for safety)
       result = hotelData.filter(
         (item) =>
           item.status &&
@@ -33,12 +29,9 @@ const Reservations = () => {
     setSelectedFilter(filter);
   };
 
-  // ✅ Calculate total return only from completed reservations
   const totalReturn = hotelData
     .filter(
-      (item) =>
-        item.status &&
-        item.status.toLowerCase() === "complete"
+      (item) => item.status && item.status.toLowerCase() === "complete"
     )
     .reduce((sum, item) => {
       return sum + Number(item.weekPrice || item.totalPrice || 0);
@@ -46,22 +39,25 @@ const Reservations = () => {
 
   const renderFilteredData = () => {
     if (loading) {
-      return <div>Loading...</div>;
+      return (
+        <div className="col-span-2 flex justify-center mt-10">
+          <p>Loading...</p>
+        </div>
+      );
     }
 
     if (filteredData.length === 0) {
       if (selectedFilter === "Upcoming") {
         return (
-          <div className="flex justify-center mt-10">
+          <div className="col-span-2 flex justify-center mt-10">
             <p className="text-lg font-semibold text-center">
               You have no upcoming reservations.
             </p>
           </div>
         );
       }
-
       return (
-        <div className="flex justify-center mt-10">
+        <div className="col-span-2 flex justify-center mt-10">
           <p className="text-lg font-semibold text-center">
             No results found.
             <br />
@@ -98,14 +94,10 @@ const Reservations = () => {
           item.status?.toLowerCase() === "upcoming") &&
           selectedFilter !== "All" && (
             <div className="mt-1 px-2 text-sm text-gray-600 flex justify-between">
-              <span>
-                {item.nights ? `${item.nights} nights` : "1 week"}
-              </span>
+              <span>{item.nights ? `${item.nights} nights` : "1 week"}</span>
               <span className="font-semibold text-gray-800">
                 Total: $
-                {Number(
-                  item.weekPrice || item.totalPrice || 0
-                ).toLocaleString()}
+                {Number(item.weekPrice || item.totalPrice || 0).toLocaleString()}
               </span>
             </div>
           )}
@@ -114,17 +106,17 @@ const Reservations = () => {
   };
 
   return (
-    <div className="container mx-auto flex flex-col items-center md:ml-10 mt-5">
-      <h2 className="text-xl md:text-3xl font-bold mb-4">
-        Reservations
-      </h2>
+    /* ✅ removed md:ml-10 (was pushing layout off-center)
+       ✅ added overflow-x-hidden to prevent horizontal scroll
+       ✅ added px-4 for consistent side padding on all screen sizes
+       ✅ w-full ensures it never exceeds the viewport */
+    <div className="w-full max-w-5xl mx-auto px-4 overflow-x-hidden flex flex-col items-center mt-5">
+      <h2 className="text-xl md:text-3xl font-bold mb-4">Reservations</h2>
 
       {/* Overall Return Banner */}
       {selectedFilter === "Complete" && totalReturn > 0 && (
-        <div className="mb-6 px-6 py-3 bg-green-50 border border-green-200 rounded-xl text-center shadow-sm">
-          <p className="text-sm text-gray-500 mb-1">
-            Overall Return (Completed)
-          </p>
+        <div className="w-full max-w-sm mb-6 py-3 bg-green-50 border border-green-200 rounded-xl text-center shadow-sm">
+          <p className="text-sm text-gray-500 mb-1">Overall Return (Completed)</p>
           <p className="text-2xl font-bold text-green-600">
             ${totalReturn.toLocaleString()}
           </p>
@@ -132,14 +124,12 @@ const Reservations = () => {
       )}
 
       {/* Filters */}
-      <div className="flex items-center justify-center gap-10 mb-4">
+      <div className="flex items-center justify-center gap-6 md:gap-10 mb-4 w-full">
         {["Upcoming", "Complete", "Canceled", "All"].map((filter) => (
           <button
             key={filter}
-            className={`cursor-pointer ${
-              selectedFilter === filter
-                ? "text-blue-500 font-bold"
-                : ""
+            className={`cursor-pointer text-sm md:text-base ${
+              selectedFilter === filter ? "text-blue-500 font-bold" : ""
             }`}
             onClick={() => filterData(filter)}
           >
@@ -148,12 +138,11 @@ const Reservations = () => {
         ))}
       </div>
 
-      <div className="flex justify-center">
-        <span className="w-[400px] border border-gray-300"></span>
-      </div>
+      {/* Divider */}
+      <div className="w-full max-w-md border-t border-gray-300 mb-5" />
 
-      {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {/* Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full justify-items-center">
         {renderFilteredData()}
       </div>
     </div>

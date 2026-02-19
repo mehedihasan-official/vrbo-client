@@ -1,4 +1,3 @@
-import { FaCheck } from "react-icons/fa";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import ResortSection from "./components/ResortSection";
 import OneKeyBanner from "./components/OneKeyBanner";
@@ -12,44 +11,43 @@ import ListProperty from "./components/ListProperty";
 
 const Home = () => {
   return (
-    <div className="container mx-auto ">
-      {/* Title */}
-      {/* <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-8 text-gray-900">
-        Search vacation rentals
-      </h1> */}
+    // Root wrapper — switches background and text color for the whole page
+    <div className="
+      min-h-screen
+      bg-white dark:bg-gray-950
+      text-gray-900 dark:text-gray-100
+      transition-colors duration-300
+    ">
+      <div className="container mx-auto">
 
-      
         {/* Hero Section */}
         <HeroSection />
-      
 
-       {/* One Key Membership Banner */}
-      <OneKeyBanner />
+        {/* One Key Membership Banner */}
+        <OneKeyBanner />
 
-      {/* Popular Destinations Carousel */}
-      <PopularDestinations />
+        {/* Popular Destinations Carousel */}
+        <PopularDestinations />
 
-      {/* Here Resort section */}
-      <ResortSection />
+        {/* Resort Section */}
+        <ResortSection />
 
-       {/* Value Props Section */}
-      <ValuePropsSection />
+        {/* Value Props Section */}
+        <ValuePropsSection />
 
-        {/* Early booking section */}
-      <EarlyBooking />
+        {/* Early Booking Section */}
+        <EarlyBooking />
 
-      
-      {/* One key card section */}
-      <OneKeyCard />
+        {/* One Key Card Section */}
+        <OneKeyCard />
 
-       {/* Promotional Tiles */}
-      <PromotionalTiles />
+        {/* Promotional Tiles */}
+        <PromotionalTiles />
 
-      {/* List Property */}
-      <ListProperty />
+        {/* List Property */}
+        <ListProperty />
 
-
-
+      </div>
     </div>
   );
 };

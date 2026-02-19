@@ -1,8 +1,9 @@
-import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+import { FaUserCircle, FaSignOutAlt, FaSun, FaMoon } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { MdClose, MdMenu } from "react-icons/md";
 import { Link } from "react-router";
 import Loading from "../../../components/Loading";
+import { useTheme } from "../../../providers/ThemeProvider";
 
 const MobileResponsive = ({
   navItems,
@@ -14,6 +15,27 @@ const MobileResponsive = ({
   isMobileMenuOpen,
   setMobileMenuOpen,
 }) => {
+   const { isDark, toggleTheme } = useTheme();
+
+// Reusable toggle button used in both desktop and mobile
+  const ThemeToggleButton = () => (
+    <button
+      onClick={toggleTheme}
+      aria-label="Toggle dark mode"
+      className="p-2 rounded-full transition-colors duration-200
+        bg-gray-100 hover:bg-gray-200
+        dark:bg-gray-700 dark:hover:bg-gray-600"
+    >
+      {isDark
+        ? <FaSun className="text-yellow-400 text-lg" />
+        : <FaMoon className="text-gray-600 text-lg" />
+      }
+    </button>
+  );
+
+
+
+  
   return (
     <div className="flex md:hidden items-center gap-3">
 
@@ -24,9 +46,9 @@ const MobileResponsive = ({
       </button>
 
       {/* My Trips */}
-      <Link className="text-sm font-medium text-gray-700">
+      {/* <Link className="text-sm font-medium text-gray-700">
         My Trips
-      </Link>
+      </Link> */}
 
       {/* User Section */}
       {loading ? (
@@ -51,6 +73,9 @@ const MobileResponsive = ({
           Sign In
         </Link>
       )}
+
+      {/* Theme toggle — mobile (always visible) */}
+            <ThemeToggleButton />
 
       {/* Menu Toggle */}
       <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
