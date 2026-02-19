@@ -8,137 +8,64 @@ const Login = () => {
   const navigate = useNavigate();
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  // Handle Google Login
   const handleGoogleLogin = async () => {
     setIsLoggingIn(true);
     try {
       await googleLogin();
-      Swal.fire({
-        title: "Successfully Signed In with Google",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      Swal.fire({ title: "Successfully Signed In with Google", icon: "success", showConfirmButton: false, timer: 1500 });
       navigate("/hosting-dashboard/listings");
     } catch (error) {
-      console.error("Google Login Failed:", error);
-      Swal.fire({
-        title: "Google Login Failed",
-        text: "An error occurred during Google login. Please try again.",
-        icon: "error",
-      });
-    } finally {
-      setIsLoggingIn(false);
-    }
+      Swal.fire({ title: "Google Login Failed", text: "An error occurred. Please try again.", icon: "error" });
+    } finally { setIsLoggingIn(false); }
   };
 
-  // Handle Email/Password Login
   const handleLogin = async (event) => {
     event.preventDefault();
     setIsLoggingIn(true);
     const form = event.target;
-    const email = form.email.value;
-    const password = form.password.value;
-
     try {
-      await login(email, password);
-      Swal.fire({
-        title: "Successfully Signed In",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      await login(form.email.value, form.password.value);
+      Swal.fire({ title: "Successfully Signed In", icon: "success", showConfirmButton: false, timer: 1500 });
       navigate("/");
     } catch (error) {
-      console.error("Login failed:", error);
-      Swal.fire({
-        title: "Login Failed",
-        text: "Invalid email or password. Please try again.",
-        icon: "error",
-      });
-    } finally {
-      setIsLoggingIn(false);
-    }
+      Swal.fire({ title: "Login Failed", text: "Invalid email or password.", icon: "error" });
+    } finally { setIsLoggingIn(false); }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-center text-gray-900">Log In</h1>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-950 transition-colors duration-300">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+        <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-white">Log In</h1>
 
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="email"
-              name="email"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#D1A054] focus:border-[#D1A054]"
-              required
-              disabled={isLoggingIn || loading}
-              autoComplete="email"
-            />
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+            <input type="email" id="email" name="email" placeholder="email" required disabled={isLoggingIn || loading} autoComplete="email"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-[#D1A054] focus:border-[#D1A054]" />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="password"
-              name="password"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#D1A054] focus:border-[#D1A054]"
-              required
-              disabled={isLoggingIn || loading}
-              autoComplete="current-password"
-            />
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+            <input type="password" id="password" name="password" placeholder="password" required disabled={isLoggingIn || loading} autoComplete="current-password"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-[#D1A054] focus:border-[#D1A054]" />
             <div className="mt-2 text-right">
-              <Link to="/forgot-password" className="text-sm text-[#D1A054] hover:underline">
-                Forgot password?
-              </Link>
+              <Link to="/forgot-password" className="text-sm text-[#D1A054] hover:underline">Forgot password?</Link>
             </div>
           </div>
-          <div>
-            <button
-              type="submit"
-              className="w-full px-4 py-2 text-white bg-[#D1A054] rounded-md hover:bg-[#b18441] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D1A054] disabled:opacity-50"
-              disabled={isLoggingIn || loading}
-              aria-disabled={isLoggingIn || loading}
-            >
-              {isLoggingIn || loading ? "Logging In..." : "Login"}
-            </button>
-          </div>
+          <button type="submit" disabled={isLoggingIn || loading}
+            className="w-full px-4 py-2 text-white bg-[#D1A054] rounded-md hover:bg-[#b18441] focus:outline-none disabled:opacity-50">
+            {isLoggingIn || loading ? "Logging In..." : "Login"}
+          </button>
         </form>
 
-        {/* Google Login Button */}
-        <div className="mt-6">
-          <button
-            onClick={handleGoogleLogin}
-            className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D1A054] disabled:opacity-50"
-            disabled={isLoggingIn || loading}
-            aria-disabled={isLoggingIn || loading}
-          >
-            <img
-              src="https://www.svgrepo.com/show/355037/google.svg"
-              alt="Google Logo"
-              className="w-5 h-5 mr-2"
-            />
-            {isLoggingIn || loading ? "Logging In..." : "Continue with Google"}
-          </button>
-        </div>
+        <button onClick={handleGoogleLogin} disabled={isLoggingIn || loading}
+          className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50">
+          <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" className="w-5 h-5 mr-2" />
+          {isLoggingIn || loading ? "Logging In..." : "Continue with Google"}
+        </button>
 
-        <p className="text-center text-sm text-gray-600">
+        <p className="text-center text-sm text-gray-600 dark:text-gray-400">
           Don't have an account?{" "}
-          <Link
-            to="/registration"
-            className="font-medium text-[#D1A054] hover:underline"
-          >
-            Register
-          </Link>
+          <Link to="/registration" className="font-medium text-[#D1A054] hover:underline">Register</Link>
         </p>
       </div>
     </div>

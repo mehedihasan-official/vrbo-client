@@ -41,22 +41,23 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-100 border-t border-gray-200">
-      {/* Logo Section */}
+    <footer className="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 pt-12 pb-6">
+
+        {/* Logo */}
         <div className="mb-8">
-          <img 
-            src="https://www.vrbo.com/_dms/header/logo.svg?locale=en_US&siteid=9001001&2" 
-            alt="Vrbo Logo" 
+          <img
+            src="https://www.vrbo.com/_dms/header/logo.svg?locale=en_US&siteid=9001001&2"
+            alt="Vrbo Logo"
             className="h-8 md:h-10"
           />
         </div>
 
-        {/* Footer Links - 3 Columns */}
+        {/* Footer Links — 3 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 pb-8">
           {footerSections.map((section, index) => (
             <div key={index}>
-              <h3 className="text-gray-900 font-semibold text-base mb-4">
+              <h3 className="text-gray-900 dark:text-white font-semibold text-base mb-4">
                 {section.title}
               </h3>
               <ul className="space-y-3">
@@ -64,7 +65,7 @@ const Footer = () => {
                   <li key={linkIndex}>
                     <a
                       href={link.href}
-                      className="text-blue-600 hover:text-blue-800 hover:underline transition-colors text-sm"
+                      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline transition-colors text-sm"
                     >
                       {link.name}
                     </a>
@@ -75,12 +76,13 @@ const Footer = () => {
           ))}
         </div>
 
-        {/* Copyright Section */}
-        <div className="border-t text-center border-gray-300 pt-6">
-          <p className="text-gray-700 text-xs">
+        {/* Copyright */}
+        <div className="border-t border-gray-300 dark:border-gray-700 pt-6 text-center">
+          <p className="text-gray-700 dark:text-gray-400 text-xs">
             © 2026 Vrbo, an Expedia Group company. All rights reserved. Vrbo and the Vrbo logo are trademarks or registered trademarks of HomeAway.com, Inc.
           </p>
         </div>
+
       </div>
     </footer>
   );

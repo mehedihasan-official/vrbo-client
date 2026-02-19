@@ -6,10 +6,8 @@ const AdminControl = () => {
   const { allUsersData, user } = useContext(AuthContext) || {};
   const [refresh, setRefresh] = useState(false);
 
-  // Safety: ensure array
   const safeUsers = Array.isArray(allUsersData) ? allUsersData : [];
 
-  // Filter only admins
   const adminUsers = useMemo(() => {
     return safeUsers.filter((u) => u.isAdmin === true);
   }, [safeUsers, refresh]);
@@ -36,7 +34,6 @@ const AdminControl = () => {
         `${import.meta.env.VITE_API_Link}/users/remove-admin/${email}`,
         { method: "PATCH" }
       );
-
       if (res.ok) {
         Swal.fire("Success", "Admin rights removed", "success");
         setRefresh(!refresh);
@@ -48,15 +45,15 @@ const AdminControl = () => {
   };
 
   return (
-    <div className="p-4 md:p-8 min-h-screen bg-gray-50">
-      <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
+    <div className="p-4 md:p-8 min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+      <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800 dark:text-white">
         Admin Control
       </h1>
 
-      <div className="bg-white rounded-xl shadow-md overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-gray-100 text-gray-700">
+            <thead className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
               <tr>
                 <th className="p-4 text-left">#</th>
                 <th className="p-4 text-left">Name</th>
@@ -67,7 +64,7 @@ const AdminControl = () => {
             <tbody>
               {adminUsers.length === 0 ? (
                 <tr>
-                  <td colSpan="4" className="p-6 text-center text-gray-500">
+                  <td colSpan="4" className="p-6 text-center text-gray-500 dark:text-gray-400">
                     No Admin Found
                   </td>
                 </tr>
@@ -75,11 +72,11 @@ const AdminControl = () => {
                 adminUsers.map((admin, index) => (
                   <tr
                     key={admin.email}
-                    className="border-t hover:bg-gray-50 transition"
+                    className="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
                   >
-                    <td className="p-4">{index + 1}</td>
-                    <td className="p-4 font-medium">{admin.name}</td>
-                    <td className="p-4 text-gray-600">{admin.email}</td>
+                    <td className="p-4 text-gray-800 dark:text-gray-200">{index + 1}</td>
+                    <td className="p-4 font-medium text-gray-800 dark:text-gray-200">{admin.name}</td>
+                    <td className="p-4 text-gray-600 dark:text-gray-400">{admin.email}</td>
                     <td className="p-4">
                       {user?.email !== admin.email ? (
                         <button
@@ -89,9 +86,7 @@ const AdminControl = () => {
                           Remove Admin
                         </button>
                       ) : (
-                        <span className="text-xs text-gray-400">
-                          You
-                        </span>
+                        <span className="text-xs text-gray-400 dark:text-gray-500">You</span>
                       )}
                     </td>
                   </tr>
