@@ -18,7 +18,7 @@ const SearchBar = () => {
               placeholder="Where to?"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-transparent outline-none text-sm md:text-base"
+              className="w-full bg-transparent outline-none text-sm dark:text-gray-300 md:text-base"
             />
           </div>
 
@@ -29,7 +29,7 @@ const SearchBar = () => {
               <input
                 type="text"
                 placeholder="Check-in"
-                className="w-full bg-transparent outline-none text-sm md:text-base"
+                className="w-full bg-transparent outline-none text-sm dark:text-gray-300 md:text-base"
               />
             </div>
             <div className="flex items-center flex-1 border border-gray-500 rounded-lg p-3 bg-gray-50 dark:bg-gray-700 focus-within:ring-2 focus-within:ring-blue-200 transition-all">
@@ -37,7 +37,7 @@ const SearchBar = () => {
               <input
                 type="text"
                 placeholder="Check-out"
-                className="w-full bg-transparent outline-none text-sm md:text-base"
+                className="w-full bg-transparent outline-none text-sm dark:text-gray-300 md:text-base"
               />
             </div>
           </div>
@@ -48,7 +48,7 @@ const SearchBar = () => {
             <input
               type="text"
               placeholder="2 guests"
-              className="w-full bg-transparent outline-none text-sm md:text-base"
+              className="w-full bg-transparent outline-none text-sm dark:text-gray-300 md:text-base"
             />
           </div>
 

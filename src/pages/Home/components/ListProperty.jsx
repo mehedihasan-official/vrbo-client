@@ -32,19 +32,19 @@ const ListProperty = () => {
               </div>
         
               {/* Mobile Layout */}
-              <div className="md:hidden flex flex-col m-4  border border-gray-300 rounded-4xl">
+              <div className="md:hidden flex flex-col m-4  border border-gray-300 dark:border-gray-600 rounded-4xl">
                 
                 {/* Content Top */}
-                <div className="bg-white p-6 rounded-4xl ">
-                  <h1 className="text-2xl font-semibold mb-3 text-gray-800">
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-4xl ">
+                  <h1 className="text-2xl font-semibold mb-3 text-gray-800 dark:text-white">
                     Early booking deals: Save over $120
                   </h1>
         
-                  <p className="mb-4 text-gray-600">
+                  <p className="mb-4 text-gray-600 dark:text-gray-200">
                     Save big when you book early. Average savings $141. Select homes only.*
                   </p>
         
-                  <button className="bg-black text-white px-5 py-2 rounded-lg font-semibold">
+                  <button className="bg-black dark:bg-white text-white dark:text-black px-5 py-2 rounded-lg font-semibold">
                     Book Now
                   </button>
                 </div>
