@@ -4,8 +4,8 @@ import OneKeyCardImg from "../../../assets/images/One-Key-card-with-border-.webp
 
 const OneKeyCard = () => {
   return (
-    <div className="py-8 px-4 md:px-8 bg-white">
-      <div className="max-w-6xl mx-auto border border-gray-200 rounded-2xl overflow-hidden">
+    <div className="py-8 px-4 md:px-8 bg-gray-900 transition-colors duration-300">
+      <div className="max-w-6xl mx-auto border border-gray-700 rounded-2xl overflow-hidden bg-gray-800 transition-colors duration-300 shadow-lg">
         
         <div className="flex flex-row items-center">
           
@@ -14,7 +14,7 @@ const OneKeyCard = () => {
             <img
               src={OneKeyPhoto}
               alt="OneKey"
-              className="w-full h-[180px] md:h-[260px] object-cover"
+              className="w-full h-[180px] md:h-[260px] object-cover rounded-l-2xl"
             />
 
             {/* Overlapping Card Image */}
@@ -26,18 +26,18 @@ const OneKeyCard = () => {
           </div>
 
           {/* Right Content Section */}
-          <div className="w-1/2  p-4 md:p-8 md:pl-8 flex justify-between items-center">
+          <div className="w-1/2 p-4 md:p-8 md:pl-8 flex justify-between items-center">
             <div>
-              <h2 className="text-base md:text-2xl font-semibold text-gray-900 mb-1 md:mb-2">
+              <h2 className="text-base md:text-2xl font-semibold text-white mb-1 md:mb-2">
                 Earn $350 in OneKeyCash™
               </h2>
-              <p className="text-xs md:text-base text-gray-600">
+              <p className="text-xs md:text-base text-gray-300">
                 after qualifying purchases. Terms apply.
               </p>
             </div>
 
             {/* Arrow */}
-            <div className="text-lg md:text-2xl text-gray-600">
+            <div className="text-lg md:text-2xl text-gray-300">
               →
             </div>
           </div>

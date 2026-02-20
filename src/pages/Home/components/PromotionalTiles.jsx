@@ -60,7 +60,7 @@ const PromotionalTiles = () => {
   };
 
   return (
-    <div className="py-12 md:py-16 bg-white">
+    <div className="py-12 md:py-16 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
 
         {/* ✅ Desktop Grid */}
@@ -68,7 +68,10 @@ const PromotionalTiles = () => {
           {tiles.map((tile) => (
             <div
               key={tile.id}
-              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 cursor-pointer group"
+              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden 
+                         shadow-lg dark:shadow-none 
+                         hover:shadow-2xl dark:hover:shadow-xl 
+                         transition-all duration-300 cursor-pointer group"
             >
               <div className="relative overflow-hidden h-64 md:h-80">
                 <img
@@ -77,14 +80,20 @@ const PromotionalTiles = () => {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
+
               <div className="p-6">
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3">
                   {tile.title}
                 </h3>
-                <p className="text-base text-gray-600 mb-4">
+
+                <p className="text-base text-gray-600 dark:text-gray-400 mb-4">
                   {tile.description}
                 </p>
-                <button className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+
+                <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 
+                                   dark:bg-blue-500 dark:hover:bg-blue-600 
+                                   text-white font-semibold rounded-lg 
+                                   transition-colors duration-200">
                   {tile.buttonText}
                 </button>
               </div>
@@ -98,14 +107,22 @@ const PromotionalTiles = () => {
           {/* Arrow Buttons */}
           <button
             onClick={handlePrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 
+                       bg-white dark:bg-gray-800 
+                       text-gray-900 dark:text-white
+                       shadow-md dark:shadow-none
+                       rounded-full p-2 transition"
           >
             ←
           </button>
 
           <button
             onClick={handleNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 
+                       bg-white dark:bg-gray-800 
+                       text-gray-900 dark:text-white
+                       shadow-md dark:shadow-none
+                       rounded-full p-2 transition"
           >
             →
           </button>
@@ -116,11 +133,9 @@ const PromotionalTiles = () => {
             className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar"
           >
             {tiles.map((tile) => (
-              <div
-                key={tile.id}
-                className="min-w-full snap-start px-2"
-              >
-                <div className="bg-white rounded-3xl overflow-hidden ">
+              <div key={tile.id} className="min-w-full snap-start px-2">
+                <div className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden transition-colors duration-300">
+                  
                   <div className="relative overflow-hidden h-64">
                     <img
                       src={tile.image}
@@ -128,14 +143,22 @@ const PromotionalTiles = () => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="p-6 bg-gray-100" >
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">
+
+                  <div className="p-6 bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                       {tile.title}
                     </h3>
-                    <p className="text-base text-gray-600 mb-4">
+
+                    <p className="text-base text-gray-600 dark:text-gray-400 mb-4">
                       {tile.description}
                     </p>
-                    <button className="px-6 py-2  text-blue-700 border border-gray-800 font-semibold rounded-full">
+
+                    <button className="px-6 py-2 
+                                       text-blue-700 dark:text-blue-400 
+                                       border border-gray-800 dark:border-gray-600 
+                                       font-semibold rounded-full 
+                                       hover:bg-gray-200 dark:hover:bg-gray-700 
+                                       transition">
                       {tile.buttonText}
                     </button>
                   </div>

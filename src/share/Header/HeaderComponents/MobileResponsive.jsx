@@ -15,9 +15,8 @@ const MobileResponsive = ({
   isMobileMenuOpen,
   setMobileMenuOpen,
 }) => {
-   const { isDark, toggleTheme } = useTheme();
+  const { isDark, toggleTheme } = useTheme();
 
-// Reusable toggle button used in both desktop and mobile
   const ThemeToggleButton = () => (
     <button
       onClick={toggleTheme}
@@ -26,63 +25,56 @@ const MobileResponsive = ({
         bg-gray-100 hover:bg-gray-200
         dark:bg-gray-700 dark:hover:bg-gray-600"
     >
-      {isDark
-        ? <FaSun className="text-yellow-400 text-lg" />
-        : <FaMoon className="text-gray-600 text-lg" />
-      }
+      {isDark ? (
+        <FaSun className="text-yellow-400 text-lg" />
+      ) : (
+        <FaMoon className="text-gray-600 text-lg dark:text-gray-300" />
+      )}
     </button>
   );
 
-
-
-  
   return (
     <div className="flex md:hidden items-center gap-3">
 
       {/* Open App Button */}
-      <button className="flex items-center gap-1 border px-3 py-1.5 rounded-full text-xs text-blue-600 font-semibold hover:bg-blue-50 transition">
+      <button className="flex items-center gap-1 border border-blue-600 dark:border-blue-400 px-3 py-1.5 rounded-full text-xs text-blue-600 dark:text-blue-400 font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/30 transition">
         Open app
         <IoMdDownload />
       </button>
 
-      {/* My Trips */}
-      {/* <Link className="text-sm font-medium text-gray-700">
-        My Trips
-      </Link> */}
-
       {/* User Section */}
       {loading ? (
-        <Loading className="animate-spin text-lg text-blue-600" />
+        <Loading className="animate-spin text-lg text-blue-600 dark:text-blue-400" />
       ) : isUserLoggedIn ? (
         <Link to="/hosting-dashboard/listings">
           {usersData?.imageURL ? (
             <img
               src={usersData.imageURL}
-              className="w-9 h-9 rounded-full object-cover border-2 border-gray-200 hover:border-blue-500 transition"
+              className="w-9 h-9 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 hover:border-blue-500 transition"
               alt="Profile"
             />
           ) : (
-            <FaUserCircle className="text-3xl text-gray-600 hover:text-blue-600 transition" />
+            <FaUserCircle className="text-3xl text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition" />
           )}
         </Link>
       ) : (
         <Link
           to="/login"
-          className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs hover:bg-blue-700 transition"
+          className="bg-blue-600 dark:bg-blue-500 text-white px-3 py-1 rounded-full text-xs hover:bg-blue-700 dark:hover:bg-blue-600 transition"
         >
           Sign In
         </Link>
       )}
 
-      {/* Theme toggle — mobile (always visible) */}
-            <ThemeToggleButton />
+      {/* Theme Toggle */}
+      <ThemeToggleButton />
 
       {/* Menu Toggle */}
       <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
         {isMobileMenuOpen ? (
-          <MdClose className="text-2xl" />
+          <MdClose className="text-2xl text-gray-800 dark:text-gray-200" />
         ) : (
-          <MdMenu className="text-2xl" />
+          <MdMenu className="text-2xl text-gray-800 dark:text-gray-200" />
         )}
       </button>
 
@@ -102,21 +94,25 @@ const MobileResponsive = ({
 
         {/* Sliding Panel */}
         <div
-          className={`absolute right-0 top-0 h-full w-4/5 max-w-sm bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${
+          className={`absolute right-0 top-0 h-full w-4/5 max-w-sm 
+          bg-white dark:bg-gray-900
+          shadow-xl transform transition-transform duration-300 ease-in-out ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-5 border-b">
-            <h2 className="text-lg font-semibold">Menu</h2>
+          <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+              Menu
+            </h2>
             <button onClick={() => setMobileMenuOpen(false)}>
-              <MdClose className="text-2xl" />
+              <MdClose className="text-2xl text-gray-800 dark:text-gray-200" />
             </button>
           </div>
 
           {/* User Info Section */}
           {isUserLoggedIn && (
-            <div className="flex items-center gap-3 p-5 border-b">
+            <div className="flex items-center gap-3 p-5 border-b border-gray-200 dark:border-gray-700">
               {usersData?.imageURL ? (
                 <img
                   src={usersData.imageURL}
@@ -124,16 +120,16 @@ const MobileResponsive = ({
                   alt="Profile"
                 />
               ) : (
-                <FaUserCircle className="text-4xl text-gray-500" />
+                <FaUserCircle className="text-4xl text-gray-500 dark:text-gray-400" />
               )}
               <div>
-                <p className="font-semibold">
+                <p className="font-semibold text-gray-900 dark:text-white">
                   {usersData?.name || "Welcome Back"}
                 </p>
                 <Link
                   to="/hosting-dashboard/listings"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm text-blue-600"
+                  className="text-sm text-blue-600 dark:text-blue-400"
                 >
                   Go to Dashboard
                 </Link>
@@ -150,8 +146,8 @@ const MobileResponsive = ({
                   onClick={() => setMobileMenuOpen(false)}
                   className={`block text-base font-medium transition ${
                     isActiveLink(item.path)
-                      ? "text-blue-600"
-                      : "text-gray-700 hover:text-blue-600"
+                      ? "text-blue-600 dark:text-blue-400"
+                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                   }`}
                 >
                   {item.label}
@@ -162,13 +158,13 @@ const MobileResponsive = ({
 
           {/* Bottom Section */}
           {isUserLoggedIn && (
-            <div className="absolute bottom-0 left-0 w-full p-5 border-t bg-gray-50">
+            <div className="absolute bottom-0 left-0 w-full p-5 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
               <button
                 onClick={() => {
                   handleSignOut();
                   setMobileMenuOpen(false);
                 }}
-                className="flex items-center justify-center gap-2 w-full bg-red-500 hover:bg-red-600 text-white py-2.5 rounded-lg transition"
+                className="flex items-center justify-center gap-2 w-full bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white py-2.5 rounded-lg transition"
               >
                 <FaSignOutAlt />
                 Sign Out

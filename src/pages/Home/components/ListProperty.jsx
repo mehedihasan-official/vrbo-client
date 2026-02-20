@@ -16,12 +16,12 @@ const ListProperty = () => {
                 <div className="absolute inset-0 bg-black/30"></div>
         
                 {/* Left Content */}
-                <div className="relative z-10 bg-white p-10 ml-16 max-w-xl rounded-lg shadow-lg">
-                  <h1 className="text-4xl font-semibold mb-4 text-gray-800 text-left">
+                <div className="relative z-10 bg-white dark:bg-gray-800 p-10 ml-16 max-w-xl rounded-lg shadow-lg">
+                  <h1 className="text-4xl font-semibold mb-4 text-gray-800 dark:text-white text-left">
                     Rent your property confidently with Vrbo
                   </h1>
         
-                  <p className="mb-6 text-lg text-gray-600 text-left">
+                  <p className="mb-6 text-lg text-gray-600 dark:text-gray-300 text-left">
                    With live-support, quick signup, and highly-rated guests, hosting on Vrbo can feel like a vacation.
                   </p>
         

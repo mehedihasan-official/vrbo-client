@@ -147,59 +147,46 @@ const PopularDestinations = () => {
   };
 
   return (
-    <div className="py-12 md:py-16 bg-white">
+    <div className="py-12 md:py-16 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
+
         {/* Section Title */}
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-8">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold 
+          text-gray-900 dark:text-white mb-8">
           Popular destinations
         </h2>
 
-        {/* Carousel Container */}
         <div className="relative">
-          {/* Navigation Buttons - Hidden on Mobile */}
+
+          {/* Desktop Nav Buttons */}
           {currentIndex > 0 && (
             <button
               onClick={handlePrev}
-              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 items-center justify-center"
-              aria-label="Previous destinations"
+              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 
+              bg-white dark:bg-gray-800 
+              rounded-full p-3 shadow-lg 
+              hover:bg-gray-50 dark:hover:bg-gray-700 
+              transition-all"
             >
-              <FaChevronLeft className="text-xl text-gray-700" />
+              <FaChevronLeft className="text-xl text-gray-700 dark:text-gray-200" />
             </button>
           )}
 
           {currentIndex < maxIndex && (
             <button
               onClick={handleNext}
-              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:bg-gray-50 items-center justify-center"
-              aria-label="Next destinations"
+              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 
+              bg-white dark:bg-gray-800 
+              rounded-full p-3 shadow-lg 
+              hover:bg-gray-50 dark:hover:bg-gray-700 
+              transition-all"
             >
-              <FaChevronRight className="text-xl text-gray-700" />
+              <FaChevronRight className="text-xl text-gray-700 dark:text-gray-200" />
             </button>
           )}
 
-          {/* Mobile Arrow Buttons */}
-          {currentIndex > 0 && (
-            <button
-              onClick={handlePrev}
-              className="md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md active:scale-95 transition-all"
-              aria-label="Previous"
-            >
-              <FaChevronLeft className="text-lg text-gray-700" />
-            </button>
-          )}
-
-          {currentIndex < maxIndex && (
-            <button
-              onClick={handleNext}
-              className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md active:scale-95 transition-all"
-              aria-label="Next"
-            >
-              <FaChevronRight className="text-lg text-gray-700" />
-            </button>
-          )}
-
-          {/* Cards Container with Touch Support */}
-          <div 
+          {/* Cards Container */}
+          <div
             className="overflow-hidden touch-pan-y"
             ref={carouselRef}
             onTouchStart={handleTouchStart}
@@ -210,67 +197,73 @@ const PopularDestinations = () => {
               className="flex transition-transform duration-500 ease-out"
               style={{
                 transform: `translateX(-${currentIndex * 100}%)`,
-                gap: itemsPerView === 1 ? '0px' : '16px',
+                gap: itemsPerView === 1 ? "0px" : "16px",
               }}
             >
               {destinations.map((destination) => (
                 <div
                   key={destination.id}
                   className="flex-shrink-0 px-1 md:px-0"
-                  style={{ 
-                    width: itemsPerView === 1 
-                      ? '100%' 
-                      : `calc(${100 / itemsPerView}% - ${12}px)` 
+                  style={{
+                    width:
+                      itemsPerView === 1
+                        ? "100%"
+                        : `calc(${100 / itemsPerView}% - 12px)`,
                   }}
                 >
-                  <div className="bg-white rounded-xl overflow-hidden  hover:shadow-xl transition-shadow duration-300 cursor-pointer group h-full  ">
+                  <div className="bg-white dark:bg-gray-800 
+                    rounded-xl overflow-hidden 
+                    hover:shadow-xl transition-shadow duration-300 
+                    cursor-pointer group h-full">
+
                     {/* Image */}
                     <div className="relative overflow-hidden h-48 md:h-52">
                       <img
                         src={destination.image}
                         alt={destination.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform rounded-3xl duration-500"
+                        className="w-full h-full object-cover 
+                        group-hover:scale-110 transition-transform 
+                        rounded-3xl duration-500"
                       />
                     </div>
 
                     {/* Content */}
                     <div className="p-4">
-                      {/* Property Title with Flag */}
-                      <div className="mb-2">
-                        <p className="text-base  font-semibold  text-gray-700 line-clamp-2">
-                          <span className="mr-1">{destination.flag}</span>
-                          {destination.name} @ {destination.location}
-                        </p>
-                      </div>
 
-                      {/* City */}
-                      <h3 className="text-sm font-base text-gray-700 mb-3">
+                      <p className="text-base font-semibold 
+                        text-gray-800 dark:text-gray-100 line-clamp-2">
+                        <span className="mr-1">{destination.flag}</span>
+                        {destination.name} @ {destination.location}
+                      </p>
+
+                      <h3 className="text-sm 
+                        text-gray-600 dark:text-gray-400 mb-3">
                         {destination.city}
                       </h3>
 
                       {/* Rating */}
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="flex items-center gap-1 bg-[#127d3b] text-white px-2 py-1 rounded text-xs font-semibold">
-                          <span>{destination.rating}</span>
+                        <div className="bg-[#127d3b] text-white px-2 py-1 rounded text-xs font-semibold">
+                          {destination.rating}
                         </div>
-                        <span className="text-sm text-gray-500">
-                          ({destination.reviews} {destination.reviews === 1 ? 'review' : 'reviews'})
+                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                          ({destination.reviews} reviews)
                         </span>
                       </div>
 
                       {/* Price */}
-                      <div className="border-t border-gray-200 pt-3">
-                        <div className="flex items-baseline gap-1 mb-1">
-                      
-                          <span className="text-lg font-bold text-gray-700">${destination.price}</span>
-                        </div>
-                        <p className="text-sm text-gray-600">
+                      <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
+                        <span className="text-lg font-bold text-gray-900 dark:text-white">
+                          ${destination.price}
+                        </span>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
                           ${destination.price * destination.nights} for {destination.nights} nights
                         </p>
                         <p className="text-xs text-[#127d3b] mt-1">
                           All fees included
                         </p>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -279,7 +272,7 @@ const PopularDestinations = () => {
           </div>
         </div>
 
-        {/* Dots Indicator */}
+        {/* Dots */}
         <div className="flex justify-center gap-2 mt-8">
           {Array.from({ length: destinations.length }).map((_, index) => (
             <button
@@ -287,10 +280,9 @@ const PopularDestinations = () => {
               onClick={() => setCurrentIndex(Math.min(index, maxIndex))}
               className={`h-2 rounded-full transition-all duration-300 ${
                 index >= currentIndex && index < currentIndex + itemsPerView
-                  ? "bg-blue-600 w-8" 
-                  : "bg-gray-300 w-2 hover:bg-gray-400"
+                  ? "bg-blue-600 w-8"
+                  : "bg-gray-300 dark:bg-gray-600 w-2 hover:bg-gray-400 dark:hover:bg-gray-500"
               }`}
-              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
