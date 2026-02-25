@@ -1,4 +1,4 @@
-import { FaUserCircle, FaSignOutAlt, FaSun, FaMoon } from "react-icons/fa";
+import { FaMoon, FaSignOutAlt, FaSun, FaUserCircle } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
 import { MdClose, MdMenu } from "react-icons/md";
 import { Link } from "react-router";
@@ -35,7 +35,6 @@ const MobileResponsive = ({
 
   return (
     <div className="flex md:hidden items-center gap-3">
-
       {/* Open App Button */}
       <button className="flex items-center gap-1 border border-blue-600 dark:border-blue-400 px-3 py-1.5 rounded-full text-xs text-blue-600 dark:text-blue-400 font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/30 transition">
         Open app
@@ -157,7 +156,7 @@ const MobileResponsive = ({
           </ul>
 
           {/* Bottom Section */}
-          {isUserLoggedIn && (
+          {isUserLoggedIn ? (
             <div className="absolute bottom-0 left-0 w-full p-5 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
               <button
                 onClick={() => {
@@ -169,6 +168,17 @@ const MobileResponsive = ({
                 <FaSignOutAlt />
                 Sign Out
               </button>
+            </div>
+          ) : (
+            <div className="absolute bottom-0 left-0 w-full p-5 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+              <Link
+                to="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white py-2.5 rounded-lg transition"
+              >
+                <FaSignOutAlt />
+                Sign In
+              </Link>
             </div>
           )}
         </div>
