@@ -94,7 +94,7 @@ const MobileResponsive = ({
 
         {/* Sliding Panel */}
         <div
-          className={`absolute right-0 top-0 h-full w-4/5 max-w-sm 
+          className={`absolute right-0 top-0 h-1/2 w-4/5 max-w-sm 
           bg-white dark:bg-gray-900
           shadow-xl transform transition-transform duration-300 ease-in-out ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
